@@ -9,10 +9,10 @@
             $title = $_POST["title"];
             $desc = $_POST["description"];
             
-            if(isset($_FILES["image"]) && isset($_FILES["image"]["name"]) && strlen($_FILES["image"]["name"])> 0) {
-                
+            // if(isset($_FILES["image"]) && isset($_FILES["image"]["name"]) && strlen($_FILES["image"]["name"])> 0) {
 
-            }
+
+            // }
 
 
             mysqli_query($con, "INSERT INTO blogs (id, title, description, date) VALUES (NULL, \"$title\", \"$desc\", NOW())");
