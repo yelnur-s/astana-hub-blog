@@ -27,7 +27,7 @@
 			<div class="page-header">
 				<h2>Редактировать блог</h2>
 			</div>
-			<form class="form" action="api/blog/update.php?id=<?=$id; ?>" method="POST">
+			<form class="form" action="api/blog/update.php?id=<?=$id; ?>" method="POST" enctype="multipart/form-data">
 				
 				<fieldset class="fieldset">
 					<input class="input" type="text" name="title" placeholder="Заголовок" value="<?=$row['title'];?>">
@@ -40,12 +40,12 @@
 					</select>
 				</fieldset class="fieldset"> -->
 
-				<!-- <fieldset class="fieldset">
+				<fieldset class="fieldset">
 					<button class="button button-yellow input-file">
 						<input type="file" name="image">	
 						Выберите картинку
 					</button>
-				</fieldset> -->
+				</fieldset>
 					
 				<fieldset class="fieldset">
 					<textarea class="input input-textarea" name="description" id="" cols="30" rows="10" placeholder="Описание"><?=$row['description'];?></textarea>
@@ -54,6 +54,18 @@
 					<button class="button" type="submit">Сохранить</button>
 				</fieldset>
 			</form>
+
+			<?php
+				if(isset($_GET["error"]) && $_GET["error"] == 3) {
+			?>
+
+				<p class="text-danger"> Заголовок и Описание не могут быть пустыми!</p>
+
+
+			<?php
+				}
+			?>
+
 
 		</div>
 

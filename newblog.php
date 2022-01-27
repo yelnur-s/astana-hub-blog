@@ -25,7 +25,8 @@
 					<option value="">Веб-разработка</option>
 					<option value="">Новости ИТ</option>
 				</select>
-			</fieldset class="fieldset"> -->	
+			</fieldset class="fieldset"> -->
+			<!-- <input type="file" name="image">		 -->
 			<fieldset class="fieldset">
 				<button class="button button-yellow input-file">
 					<input type="file" name="image">	
@@ -40,6 +41,17 @@
 				<button class="button" type="submit">Сохранить</button>
 			</fieldset>
 			</form>
+
+			<?php
+				if(isset($_GET["error"]) && $_GET["error"] == 3) {
+			?>
+
+				<p class="text-danger"> Заголовок и Описание не могут быть пустыми!</p>
+
+
+			<?php
+				}
+			?>
 
 		</div>
 

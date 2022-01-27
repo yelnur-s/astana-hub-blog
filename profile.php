@@ -1,5 +1,6 @@
 <?php 
 	include "config/db.php";
+	include "common/time_ago.php";
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
 ?>
 
 			<div class="blog-item">
-				<img class="blog-item--img" src="" alt="">
+				<img class="blog-item--img" src="<?php echo $BASE_URL.$row["img"]; ?>" alt="">
 				<div class="blog-header">
 					<h3><?=$row["title"]?></h3>
 					<span class="link">
@@ -53,7 +54,7 @@
 				<div class="blog-info">
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/date.svg" alt="">
-						26.06.2020
+						<?php echo to_time_ago(strtotime($row["date"])); ?>
 					</span>
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/visibility.svg" alt="">
