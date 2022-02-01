@@ -7,7 +7,14 @@
 <html lang="en">
 <head>
 	<title>Профиль</title>
-	<?php include "views/head.php"; ?>
+	<?php 
+	include "views/head.php"; 
+	if(!isset($_SESSION["user_id"])) {
+		header("Location: $BASE_URL");
+		exit();
+	}
+
+	?>
 </head>
 <body>
 
@@ -95,6 +102,8 @@
 			<h2>В основном пишу про веб - разработку, на React & Redux</h2>
 			<p>285 постов за все время</p>
 			<a href="" class="button">Редактировать</a>
+
+			<a href="api/user/signout.php" class="button button-danger">Выход</a>
 		</div>
 	</div>
 </section>	

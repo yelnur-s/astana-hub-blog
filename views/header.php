@@ -10,13 +10,24 @@
 		</button>
 	</div>
 	<div>
+	<?php
+		
+		if(isset($_SESSION["user_id"])) {
+	?>
         <a href="<?=$BASE_URL; ?>/profile.php">
             <img class="avatar" src="<?=$BASE_URL; ?>/images/avatar.png" alt="Avatar">
         </a>
 
-        <!-- <div class="button-group">
+		<?php
+		} else {
+		?>
+        <div class="button-group">
             <a href="<?=$BASE_URL; ?>/register.php" class="button">Регистрация</a>
             <a href="<?=$BASE_URL; ?>/login.php" class="button">Вход</a>
-        </div> -->
+        </div>
+
+		<?php
+		}
+		?>
 	</div>
 </header>

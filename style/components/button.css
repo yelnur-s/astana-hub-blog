@@ -36,6 +36,11 @@
     color: #000;
 }
 
+.button-danger {
+    background-color: #ff0000;
+    color: #fff;
+}
+
 .button-group {
     display: flex;
     flex-wrap: wrap;

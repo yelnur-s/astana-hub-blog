@@ -10,12 +10,12 @@
 	<section class="container page">
 		<div class="auth-form">
             <h1>Вход</h1>
-			<form class="form" method="POST">
+			<form class="form" method="POST" action="api/user/signin.php">
                 <fieldset class="fieldset">
-                    <input class="input" type="text" name="title" placeholder="Введите email">
+                    <input class="input" type="text" name="email" placeholder="Введите email">
                 </fieldset>
                 <fieldset class="fieldset">
-                    <input class="input" type="password" name="title" placeholder="Введите пароль">
+                    <input class="input" type="password" name="password" placeholder="Введите пароль">
                 </fieldset>
 
                 <fieldset class="fieldset">

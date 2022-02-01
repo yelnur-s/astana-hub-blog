@@ -27,3 +27,8 @@
 .user-profile a {
     margin: 0 auto;
 }
+
+
+.user-profile .button-danger {
+    margin-top: 20px;
+}
