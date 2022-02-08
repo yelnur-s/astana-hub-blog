@@ -1,3 +1,6 @@
+<?php
+	include "config/db.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,12 +23,17 @@
 				<input class="input" type="text" name="title" placeholder="Заголовок">
 			</fieldset>
 
-			<!-- <fieldset class="fieldset">
-				<select name="" id="" class="input">
-					<option value="">Веб-разработка</option>
-					<option value="">Новости ИТ</option>
+			<fieldset class="fieldset">
+				<select name="category_id" id="" class="input">
+					<?php
+
+						$query = mysqli_query($con, "SELECT * FROM categories");
+						while($category = mysqli_fetch_assoc($query)) {
+							echo "<option value='".$category["id"]."'>".$category["name"]."</option>";
+						}
+					?>
 				</select>
-			</fieldset class="fieldset"> -->
+			</fieldset>
 			<!-- <input type="file" name="image">		 -->
 			<fieldset class="fieldset">
 				<button class="button button-yellow input-file">

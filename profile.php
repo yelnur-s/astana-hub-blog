@@ -33,7 +33,8 @@
 
 <?php
 
-		$query = mysqli_query($con, "SELECT * FROM blogs");
+		$nickname = $_GET["nickname"];
+		$query = mysqli_query($con, "SELECT b.*, u.nickname, c.name FROM blogs b LEFT OUTER JOIN users u ON b.author_id=u.id LEFT OUTER JOIN categories c ON b.category_id=c.id WHERE u.nickname='$nickname'");
 
 		if(mysqli_num_rows($query) > 0) {
 			while($row = mysqli_fetch_assoc($query)) {
@@ -43,6 +44,10 @@
 				<img class="blog-item--img" src="<?php echo $BASE_URL.$row["img"]; ?>" alt="">
 				<div class="blog-header">
 					<h3><?=$row["title"]?></h3>
+
+					<?php
+						if($_SESSION["user_id"] == $row["author_id"]) {
+					?>
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/dots.svg" alt="">
 						Еще
@@ -52,6 +57,10 @@
 							<li><a href="<?=$BASE_URL ?>/api/blog/delete.php?id=<?=$row["id"] ?>" class="danger">Удалить</a></li>
 						</ul>
 					</span>
+
+					<?php
+						}
+					?>
 
 				</div>
 				<p class="blog-desc">
@@ -73,11 +82,11 @@
 					</a>
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/forums.svg" alt="">
-						Веб-разработка
+						<?=$row["name"] ?>
 					</span>
 					<a class="link">
 						<img src="<?=$BASE_URL; ?>/images/person.svg" alt="">
-						Nast1289
+						<?=$row["nickname"] ?>
 					</a>
 				</div>
 			</div>

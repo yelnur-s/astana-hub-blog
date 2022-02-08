@@ -14,7 +14,7 @@
 		
 		if(isset($_SESSION["user_id"])) {
 	?>
-        <a href="<?=$BASE_URL; ?>/profile.php">
+        <a href="<?=$BASE_URL; ?>/profile.php?nickname=<?=$_SESSION["nickname"]?>">
             <img class="avatar" src="<?=$BASE_URL; ?>/images/avatar.png" alt="Avatar">
         </a>
 

@@ -9,7 +9,7 @@
         $pass = $_POST["password"];
         $hash = sha1($pass);
 
-        $prep = mysqli_prepare($con, "SELECT id FROM users WHERE email=? AND password=?");
+        $prep = mysqli_prepare($con, "SELECT id, nickname FROM users WHERE email=? AND password=?");
         mysqli_stmt_bind_param($prep, "ss", $email, $hash);
         mysqli_stmt_execute($prep);
         $query = mysqli_stmt_get_result($prep);
@@ -22,7 +22,8 @@
 
         session_start();
         $_SESSION["user_id"] = $row["id"];
-        header("Location: $BASE_URL/profile.php");
+        $_SESSION["nickname"] = $row["nickname"];
+        header("Location: $BASE_URL/profile.php?nickname=".$row["nickname"]);
 
     } else {
         header("Location: $BASE_URL/login.php?error=7");

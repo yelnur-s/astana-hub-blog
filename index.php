@@ -1,3 +1,8 @@
+<?php
+	include "config/db.php";
+	include "common/time_ago.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,23 +19,34 @@
  и профессиональных программистов и IT-специалистов.</p>
 
 		<div class="blogs">
+
+			<?php
+
+				$sql = "SELECT b.*, u.nickname, c.name FROM blogs b LEFT OUTER JOIN users u ON b.author_id=u.id LEFT OUTER JOIN categories c ON b.category_id=c.id";
+				if(isset($_GET["category_id"]) && intval($_GET["category_id"])) {
+					$sql .= " WHERE b.category_id=".$_GET["category_id"];
+				}
+				$query = mysqli_query($con, $sql);
+
+				if(mysqli_num_rows($query) > 0) {
+					while($row = mysqli_fetch_assoc($query)) {
+
+			?>
+
+
 			<div class="blog-item">
-				<img class="blog-item--img" src="<?=$BASE_URL; ?>/images/1.png" alt="">
+				<img class="blog-item--img" src="<?=$BASE_URL; ?>/<?=$row["img"]; ?>" alt="">
 				<div class="blog-header">
-					<h3>Обзор Report Manager от Webix</h3>
+					<h3><?=$row["title"]; ?></h3>
 				</div>
 				<p class="blog-desc">
-					Осень 2020 года стала плодотворным временем для специалистов Webix. 
-
-					Команда Webix выпустила восьмую версию библиотеки пользовательского интерфейса Webix с двумя новыми комплексными виджетами. Первый - зто Scheduler, о котором мы подробно говорили ранее. Второй виджет - это Gantt chart в JavaScript. Подробную информацию об этом виджете Вы можете найти в статье. 
-
-					Ноябрь продолжает тенденцию, и мы спешим поделиться с Вами новым комплексным виджетом Report Manager. Давайте рассмотрим ег
+					<?=$row["description"]; ?>
 				</p>
 
 				<div class="blog-info">
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/date.svg" alt="">
-						26.06.2020
+						<?php echo to_time_ago(strtotime($row["date"])); ?>
 					</span>
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/visibility.svg" alt="">
@@ -42,50 +58,29 @@
 					</a>
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/forums.svg" alt="">
-						Веб-разработка
+						<?=$row["name"] ?>
 					</span>
-					<a class="link">
+					<a class="link" href="<?=$BASE_URL; ?>/profile.php?nickname=<?=$row["nickname"] ?>">
 						<img src="<?=$BASE_URL; ?>/images/person.svg" alt="">
-						Nast1289
+						
+						<?=$row["nickname"] ?>
+
+
 					</a>
 				</div>
 			</div>
-			<div class="blog-item">
-				<img class="blog-item--img" src="<?=$BASE_URL; ?>/images/2.png" alt="">
-				<div class="blog-header">
-					<h3>Обзор Report Manager от Webix</h3>		
-				</div>
-				<p class="blog-desc">
-					Осень 2020 года стала плодотворным временем для специалистов Webix. 
+			<?php
+					}
+				} else {
+			?>
 
-					Команда Webix выпустила восьмую версию библиотеки пользовательского интерфейса Webix с двумя новыми комплексными виджетами. Первый - зто Scheduler, о котором мы подробно говорили ранее. Второй виджет - это Gantt chart в JavaScript. Подробную информацию об этом виджете Вы можете найти в статье. 
+			<h3>0 blogs</h3>
+			<?php
+				}
+			?>
 
-					Ноябрь продолжает тенденцию, и мы спешим поделиться с Вами новым комплексным виджетом Report Manager. Давайте рассмотрим ег
-				</p>
 
-				<div class="blog-info">
-					<span class="link">
-						<img src="<?=$BASE_URL; ?>/images/date.svg" alt="">
-						26.06.2020
-					</span>
-					<span class="link">
-						<img src="<?=$BASE_URL; ?>/images/visibility.svg" alt="">
-						21
-					</span>
-					<a class="link">
-						<img src="<?=$BASE_URL; ?>/images/message.svg" alt="">
-						4
-					</a>
-					<span class="link">
-						<img src="<?=$BASE_URL; ?>/images/forums.svg" alt="">
-						Веб-разработка
-					</span>
-					<a class="link">
-						<img src="<?=$BASE_URL; ?>/images/person.svg" alt="">
-						Nast1289
-					</a>
-				</div>
-			</div>
+
 		</div>
 	</div>
     <?php include "views/categories.php"; ?>

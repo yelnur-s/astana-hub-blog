@@ -33,12 +33,22 @@
 					<input class="input" type="text" name="title" placeholder="Заголовок" value="<?=$row['title'];?>">
 				</fieldset>
 
-				<!-- <fieldset class="fieldset">
-					<select name="" id="" class="input">
-						<option value="">Веб-разработка</option>
-						<option value="">Новости ИТ</option>
+				<fieldset class="fieldset">
+					<select name="category_id" class="input" value="<?=$row['category_id'];?>">
+						<?php
+
+							$query = mysqli_query($con, "SELECT * FROM categories");
+							while($category = mysqli_fetch_assoc($query)) {
+								if($category["id"] == $row['category_id']) {
+									echo "<option value='".$category["id"]."' selected>".$category["name"]."</option>";
+								} else {
+									echo "<option value='".$category["id"]."'>".$category["name"]."</option>";
+								}
+								
+							}
+						?>
 					</select>
-				</fieldset class="fieldset"> -->
+				</fieldset class="fieldset">
 
 				<fieldset class="fieldset">
 					<button class="button button-yellow input-file">
