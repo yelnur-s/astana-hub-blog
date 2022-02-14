@@ -2,13 +2,14 @@
 	<div class="header-logo">
 	    <a href="<?=$BASE_URL; ?>/index.php">Decode Blog</a>	
 	</div>
-	<div class="header-search">
-		<input type="text" class="input-search" placeholder="Поиск по блогам">
-		<button class="button button-search">
+	<form class="header-search" method="GET">
+		<input type="hidden" name="page" value="1">
+		<input type="text" class="input-search" placeholder="Поиск по блогам" name="q">
+		<button class="button button-search" type="submit">
 			<img src="<?=$BASE_URL; ?>/images/search.svg" alt="">	
 			Найти
 		</button>
-	</div>
+	</form>
 	<div>
 	<?php
 		
