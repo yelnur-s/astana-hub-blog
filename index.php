@@ -94,7 +94,7 @@
 			<div class="blog-item">
 				<img class="blog-item--img" src="<?=$BASE_URL; ?>/<?=$row["img"]; ?>" alt="">
 				<div class="blog-header">
-					<h3><?=$row["title"]; ?></h3>
+					<h3> <a href="blog-details.php?id=<?=$row["id"]; ?>"><?=$row["title"]; ?></a> </h3>
 				</div>
 				<p class="blog-desc">
 					<?=$row["description"]; ?>

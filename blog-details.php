@@ -1,10 +1,28 @@
+<?php
+	include "config/db.php";
+	include "config/base_url.php";
+
+	if(!isset($_GET["id"]) ||  !intval($_GET["id"])) {
+		header("Location: $BASE_URL");
+		exit();
+	}
+	$id = $_GET["id"];
+	$query_blog = mysqli_query($con, "SELECT b.*, u.nickname, c.name FROM blogs b LEFT OUTER JOIN users u ON b.author_id=u.id LEFT OUTER JOIN categories c ON b.category_id=c.id WHERE b.id=$id");
+	if(mysqli_num_rows($query_blog) == 0) {
+		header("Location: $BASE_URL");
+		exit();
+	}
+
+	$blog = mysqli_fetch_assoc($query_blog);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<title>Профиль</title>
     <?php include "views/head.php"; ?>
 </head>
-<body>
+<body data-baseurl="<?=$BASE_URL;?>">
 
 
 <?php  include "views/header.php"; ?>
@@ -13,12 +31,12 @@
 	<div class="page-content">
 		<div class="blogs">
 			<div class="blog-item">
-				<img class="blog-item--img" src="<?=$BASE_URL; ?>/images/1.png" alt="">
+				<img class="blog-item--img" src="<?=$BASE_URL; ?>/<?=$blog["img"]?>" alt="">
 
                 <div class="blog-info">
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/date.svg" alt="">
-						26.06.2020
+						<?=$blog["date"]?>
 					</span>
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/visibility.svg" alt="">
@@ -30,66 +48,56 @@
 					</a>
 					<span class="link">
 						<img src="<?=$BASE_URL; ?>/images/forums.svg" alt="">
-						Веб-разработка
+						<?=$blog["name"]?>
 					</span>
 					<a class="link">
 						<img src="<?=$BASE_URL; ?>/images/person.svg" alt="">
-						Nast1289
+						<?=$blog["nickname"]?>
 					</a>
 				</div>
 
 				<div class="blog-header">
-					<h3>Обзор Report Manager от Webix</h3>
+					<h3><?=$blog["title"]?></h3>
 				</div>
 				<p class="blog-desc">
-					Осень 2020 года стала плодотворным временем для специалистов Webix. 
-
-					Команда Webix выпустила восьмую версию библиотеки пользовательского интерфейса Webix с двумя новыми комплексными виджетами. Первый - зто Scheduler, о котором мы подробно говорили ранее. Второй виджет - это Gantt chart в JavaScript. Подробную информацию об этом виджете Вы можете найти в статье. 
-
-					Ноябрь продолжает тенденцию, и мы спешим поделиться с Вами новым комплексным виджетом Report Manager. Давайте рассмотрим ег
+					<?=$blog["description"]?>	
 				</p>
 			</div>
 		</div>
 
-        <div class="comments">
-            <h2>
-                2 комментариея
-            </h2>
-
-            <div class="comment">
-                <div class="comment-header">
-                    <img src="<?=$BASE_URL ?>/images/avatar.png" alt="">
-                    Елнур Сеитжанов
-                </div>
-                <p>
-                В отличие от обычных виджетов пользовательского интерфейса JavaScript, комплексные виджеты - это полноценные приложения, которые не требуют дополнительной настройки и кастомизации.
-                </p>
-            </div>
-
-            <div class="comment">
-                <div class="comment-header">
-                    <img src="<?=$BASE_URL ?>/images/avatar.png" alt="">
-                    Елнур Сеитжанов
-                </div>
-                <p>
-                В отличие от обычных виджетов пользовательского интерфейса JavaScript, комплексные виджеты - это полноценные приложения, которые не требуют дополнительной настройки и кастомизации.
-                </p>
-            </div>
-
-            <span class="comment-add">
-                <textarea name="" class="comment-textarea" placeholder="Введит текст комментария"></textarea>
-                <button class="button">Отправить</button>
-            </span>
-
-            <span class="comment-warning">
-                Чтобы оставить комментарий <a href="">зарегистрируйтесь</a> , или  <a href="">войдите</a>  в аккаунт.
-            </span>
-
+        <div class="comments" id="comments">
         </div>
+
+		<?php
+
+			if(isset($_SESSION["user_id"])) {
+		?>
+
+		<span class="comment-add">
+			<textarea name="" class="comment-textarea" id="comment-text" placeholder="Введит текст комментария"></textarea>
+			<button class="button" id="add-comment">Отправить</button>
+		</span>
+
+		<?php
+			} else {
+		?>
+
+		<span class="comment-warning">
+			Чтобы оставить комментарий <a href="register.php">зарегистрируйтесь</a> , или  <a href="login.php">войдите</a>  в аккаунт.
+		</span>
+
+
+		<?php
+			}
+		?>
 	</div>
 	
 
     <?php include "views/categories.php"; ?>
 </section>	
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js"></script>
+	<script src="js/comment.js"></script>
+
 </body>
 </html>
