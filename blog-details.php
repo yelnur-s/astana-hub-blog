@@ -22,7 +22,7 @@
 	<title>Профиль</title>
     <?php include "views/head.php"; ?>
 </head>
-<body data-baseurl="<?=$BASE_URL;?>">
+<body data-baseurl="<?=$BASE_URL;?>" data-authorid="<?=$blog['author_id']?>">
 
 
 <?php  include "views/header.php"; ?>

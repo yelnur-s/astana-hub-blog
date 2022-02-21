@@ -13,13 +13,25 @@
     align-items: center;
     font-size: 24px;
     margin-bottom: 30px;
+    justify-content: space-between;
 }
 
-.comment-header > img {
+.comment-header > div {
+    display: flex;
+    align-items: center;
+}
+
+.comment-header > div > img {
     width: 72px;
     height: 72px;
     border-radius: 100%;
     margin-right: 35px;
+}
+
+.comment-header span {
+    font-size: 16px;
+    color: #ff0000;
+    cursor: pointer;
 }
 
 .comment:last-of-type {
